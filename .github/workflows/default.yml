@@ -26,6 +26,7 @@ jobs:
         run:  dotnet pack
 
       - name: publish
-        run:  dotnet nuget push Bkkr.GitHub.TestActionsAndRegistry.nupkg --source GPR 
+        #run:  dotnet nuget push Bkkr.GitHub.TestActionsAndRegistry.nupkg --source GPR 
+        run:  nuget push Bkkr.GitHub.TestActionsAndRegistry.nupkg -Source GPR 
         #env:
         #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
