@@ -25,6 +25,9 @@ jobs:
       - name: package
         run:  dotnet pack
 
+      - name: install nuget
+        uses: warrenbuckley/Setup-Nuget@v1
+
       - name: register nuget repo
         ## As per:
         ##  https://help.github.com/en/articles/configuring-nuget-for-use-with-github-package-registry
