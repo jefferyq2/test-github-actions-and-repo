@@ -44,4 +44,4 @@ jobs:
 
       - name: publish
         #run:  dotnet nuget push Bkkr.GitHub.TestActionsAndRegistry.nupkg --source GPR 
-        run:  mono $NUGET_EXE push bin/Debug/Bkkr.GitHub.TestActionsAndRegistry.nupkg -Source GPR 
+        run:  mono $NUGET_EXE push src/Bkkr.GitHub.TestActionsAndRegistry/bin/Debug/Bkkr.GitHub.TestActionsAndRegistry.nupkg -Source GPR 
