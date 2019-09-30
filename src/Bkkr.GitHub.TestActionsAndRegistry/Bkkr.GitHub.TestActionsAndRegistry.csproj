@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <Copyright>Copyright (C) 2019 Eugene Bekker.</Copyright>
+    <!-- GenerateAssemblyCopyrightAttribute -->
     <RepositoryUrl>https://github.com/ebekker/test-github-actions-and-repo</RepositoryUrl>
   </PropertyGroup>
 
