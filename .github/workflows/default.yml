@@ -1,0 +1,20 @@
+name: CI
+
+on: [push]
+
+jobs:
+  default-build:
+    #runs-on: ubuntu-latest
+    runs-on: ubuntu-16.04
+
+    steps:
+      - name: build
+        run:  dotnet build
+
+      - name: package
+        run:  dotnet pack
+
+      - name: publish
+        run:  nuget nuget push Bkkr.GitHub.TestActionsAndRegistry.nupkg --source GPR 
+        #env:
+        #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
