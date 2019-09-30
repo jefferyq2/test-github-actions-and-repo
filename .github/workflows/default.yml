@@ -40,6 +40,7 @@ jobs:
           mono $NUGET_EXE sources Add -Name "GPR" \
             -Source "https://nuget.pkg.github.com/ebekker/index.json" \
             -UserName ebekker -Password $GITHUB_TOKEN
+          mono $NUGET_EXE setapikey $GITHUB_TOKEN -Source "GPR"
 
       - name: publish
         #run:  dotnet nuget push Bkkr.GitHub.TestActionsAndRegistry.nupkg --source GPR 
