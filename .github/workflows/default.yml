@@ -8,6 +8,13 @@ jobs:
     runs-on: ubuntu-16.04
 
     steps:
+      - name: build number
+        uses: ./
+        id: build-num
+
+      - name: print build number
+        run: echo BUILD_NUM=$BUILD_NUM
+
       - name: checkout
         uses: actions/checkout@v1
 
