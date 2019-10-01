@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v1
 
       - name: build number
-        uses: ./
+        uses: ./.github/actions/build-num/
         id: build-num
 
       - name: print build number
