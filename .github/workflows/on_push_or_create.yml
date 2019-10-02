@@ -23,35 +23,14 @@ jobs:
       - name: dump event payload
         run: cat $GITHUB_EVENT_PATH
 
-      - name: test secret
-        shell: pwsh
-        run: |
-          $secret = "${{ secrets.BUILD_NUM_OAUTH }}"
-          Write-Host "Secret is [$secret]"
-          if ($secret) {
-            echo "It's not empty"
-            echo $secret.Length
-            $get = Invoke-WebRequest https://api.github.com/gists -Headers (@{
-              Accept        = "application/vnd.github.v2+json"
-              Authorization = "token $secret"
-            })
-            
-            echo "Got Content: $($get.Content.Length)"
-          }
-          else {
-            Write-Warning "Secret is EMPTY!"
-          }
-
       - name: compute build numbers (pwsh)
         shell: pwsh
         run: |
-          $secret = "${{ secrets.BUILD_NUM_OAUTH }}"
-          Write-Host "Secret is [$secret]"
-          ./.github/workflows/build-num.ps1  `
-            -InformationAction Continue      `
-            -GitHubToken "$secret"           `
+          ./.github/workflows/build-num.ps1               `
+            -InformationAction Continue                   `
+            -GitHubToken "${{ secrets.BUILD_NUM_OAUTH }}" `
             -VersionKey 0.0.0
-           
+          
           echo "Dumping build numbers within step:"
           echo "GITHUB_WORKFLOW = $GITHUB_WORKFLOW"
           echo "THIS_BUILD_NUM = $THIS_BUILD_NUM"
