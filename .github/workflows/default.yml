@@ -40,7 +40,7 @@ jobs:
             -VersionKey "$($env:TAG_VERSION_PREFIX)"
           ## FOO
           Write-Host "Computing Build Version Suffix as:  "
-          $buildVersionSuffix = "$($env:VERS_BUILD_NUM)$($env:TAG_VERSION_SUFFIX)"
+          $buildVersionSuffix = ".$($env:VERS_BUILD_NUM)$($env:TAG_VERSION_SUFFIX)"
           Write-Host "::set-env name=BUILD_VERSION_SUFFIX::$($buildVersionSuffix)"
 
       - name: build
