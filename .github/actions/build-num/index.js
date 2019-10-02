@@ -1,16 +1,16 @@
 
 const core = require('@actions/core');
-const github = require('@actions/github');
+const exec = require('@actions/exec');
+//const github = require('@actions/github');
 
-try {
-    // `who-to-greet` input defined in action metadata file
-    const build_name = core.getInput('build_name');
-    const wiki_page = core.getInput('wiki_page');
-    const github_token = core.getInput('github_token');
-    
-    console.log(`BUILD_NAME is:  [${build_name}]`);
-    console.log(`WIKI_PAGE is: [${wiki_page}]`);
+async function run() {
+  try {
+    const gist_token = core.getInput('gist_token');
+    const version_key = core.getInput('version_key');
 
+    await exec.exec('pwsh', ['-f', 'build-num.ps1']);
+
+  /*
     const octokit = new github.GitHub(github_token);
 
     core.setOutput("build_num", "99");
@@ -26,3 +26,6 @@ try {
   } catch (error) {
     core.setFailed(error.message);
   }
+}
+  
+run();

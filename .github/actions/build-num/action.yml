@@ -4,20 +4,18 @@ author: ebekker
 description: Exposes an increasing build number to the containing workflow.
 
 inputs:
-  build_name:
-    description: The name of the build number, defaults to $GITHUB_WORKFLOW.
+  gist_token:
+    description: The OAuth Token to use for reading/writing state in GIST.
     required: true
-  wiki_page:
-    description: The name of the wiki page that stores build number state, defaults to ACTIONS_BUILD_NUMS.
+  version_key:
+    description: An optional id to scope the build numbers.
     required: false
-    default: ACTIONS_BUILD_NUMS
-  github_token:
-    description: The GITHUB_TOKEN to perform reads/writes.
-    required: true
 
 outputs:
-  build_num:
-    description: The build number for the current workflow run.
+  this_build_num:
+    description: The global build number for the current repo.
+  vers_build_num:
+    description: The scoped build number for the argument version key.
 
 runs:
   using: node12

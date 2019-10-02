@@ -40,17 +40,31 @@ jobs:
             Write-Host "::set-env name=TAG_VERSION_SUFFIX::$tagVersionSuffix"
           }
 
+      # - name: build number (pwsh)
+      #   shell: pwsh
+      #   run: |
+      #     ./.github/workflows/build-num.ps1               `
+      #       -InformationAction Continue                   `
+      #       -GitHubToken "${{ secrets.BUILD_NUM_OAUTH }}" `
+      #       -VersionKey "$($env:TAG_VERSION_PREFIX)"
+
+      #     Write-Host "Computing Build Version Suffix as:  "
+      #     $buildVersionSuffix = ".$($env:VERS_BUILD_NUM)$($env:TAG_VERSION_SUFFIX)"
+      #     Write-Host "::set-env name=BUILD_VERSION_SUFFIX::$($buildVersionSuffix)"
+
       - name: build number (pwsh)
+        uses: ./.github/actions/build-num
+        with:
+          gist_token: ${{ secrets.BUILD_NUM_OAUTH }}
+          version_key: ${{ secrets.BUILD_NUM_OAUTH }}
+
+      - name: compute build version
         shell: pwsh
         run: |
-          ./.github/workflows/build-num.ps1               `
-            -InformationAction Continue                   `
-            -GitHubToken "${{ secrets.BUILD_NUM_OAUTH }}" `
-            -VersionKey "$($env:TAG_VERSION_PREFIX)"
-
           Write-Host "Computing Build Version Suffix as:  "
           $buildVersionSuffix = ".$($env:VERS_BUILD_NUM)$($env:TAG_VERSION_SUFFIX)"
           Write-Host "::set-env name=BUILD_VERSION_SUFFIX::$($buildVersionSuffix)"
+
 
       - name: build
         run:  dotnet build /p:VersionBuildNumber=$BUILD_VERSION_SUFFIX
