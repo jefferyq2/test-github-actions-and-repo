@@ -27,6 +27,7 @@ param(
 
 $ghWorkflow = $env:GITHUB_WORKFLOW   ## Name of workflow
 Write-Information "Workflow: [$ghWorkflow]"
+Write-Information "Version Key: [$VersionKey]"
 
 $ghRepoFull = $env:GITHUB_REPOSITORY ## owner/repo-name
 ($ghOwner, $ghRepo) = $ghRepoFull -split '/'
