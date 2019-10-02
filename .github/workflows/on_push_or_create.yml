@@ -1,6 +1,6 @@
 
-on: [push, create]
-if: false
+#on: [push, create]
+on: repository_dispatch
 
 jobs:
   default-build:
