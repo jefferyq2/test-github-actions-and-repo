@@ -48,6 +48,8 @@ jobs:
         run: |
           export SAMPLE_VAR1=foo
           export SAMPLE_VAR2=bar
+          export OUTPUT_SAMPLE_VAR1=foo
+          export OUTPUT_SAMPLE_VAR2=bar
           echo "Exported vars:"
           echo "SAMPLE_VAR1 = $SAMPLE_VAR1"
           echo "SAMPLE_VAR2 = $SAMPLE_VAR2"
