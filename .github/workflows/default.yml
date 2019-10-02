@@ -67,7 +67,7 @@ jobs:
 
 
   _2_push-github-nuget:
-    needs: default-build
+    needs: _1_dotnet-build
     if: (github.event_name == 'push') && startsWith(github.ref, 'refs/tags/v=')
 
     #runs-on: ubuntu-latest
@@ -107,7 +107,7 @@ jobs:
         #run:  dotnet nuget push Bkkr.GitHub.TestActionsAndRegistry.nupkg --source GPR 
 
   _3_push-public-nuget:
-    needs: default-build
+    needs: _1_dotnet-build
     if: (github.event_name == 'release') && startsWith(github.ref, 'refs/tags/v=')
 
     #runs-on: ubuntu-latest
