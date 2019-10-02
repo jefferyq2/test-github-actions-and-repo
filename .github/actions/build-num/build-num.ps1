@@ -42,9 +42,6 @@ $apiHeaders = @{
     Authorization = "token $GitHubToken"
 }
 
-Write-Warning "GOT TOKEN OF LENGTH $($GitHubToken.Length)"
-Write-Warning ($apiHeaders | ConvertTo-Json)
-
 try {
     ## Request all Gists for the current user
     $listGistsResp = Invoke-WebRequest -Headers $apiHeaders -Uri $gistsApiUrl -ErrorAction Stop
