@@ -48,9 +48,9 @@ jobs:
         run: |
           Write-Host "::warning::This is a warning with Write-Host"
           Write-Output "::warning::This is a warning with Write-Output"
-          Write-Host "::set-var name=out1::This is the value of out1"
-          Write-Host "::set-var name=out2::This is the value of out2"
-          ls env:
+          Write-Host "::set-var::This is the value of out1"
+          Write-Host "::set-var::This is the value of out2"
+          Get-ChildItem env:
       
       - name: dumping step cmdStrings
         shell: pwsh
