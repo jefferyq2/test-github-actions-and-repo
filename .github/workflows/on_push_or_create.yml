@@ -47,9 +47,10 @@ jobs:
         run: |
           $secret = "${{ secrets.BUILD_NUM_OAUTH }}"
           Write-Host "Secret is [$secret]"
-          ./.github/workflows/build-num.ps1  \
-            -InformationAction Continue      \
-            -GitHubToken "$secret"   -VersionKey 0.0.0
+          ./.github/workflows/build-num.ps1  `
+            -InformationAction Continue      `
+            -GitHubToken "$secret"           `
+            -VersionKey 0.0.0
            
           echo "Dumping build numbers within step:"
           echo "GITHUB_WORKFLOW = $GITHUB_WORKFLOW"
