@@ -15,10 +15,10 @@ jobs:
         shell: pwsh
         run: |
           if ($env:GITHUB_REF -match '^refs/tags/v=(.+)') {
-            $tagVersion = $Match[1]
+            $tagVersion = $Matches[1]
             if ($tagVersion -match '(.+)(-.+)') {
-              $tagVersionPrefix = $Match[1]
-              $tagVersionSuffix = $Match[2]
+              $tagVersionPrefix = $Matches[1]
+              $tagVersionSuffix = $Matches[2]
             }
             else {
               $tagVersionPrefix = $tagVersion
