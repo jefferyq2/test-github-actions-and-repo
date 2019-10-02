@@ -1,10 +1,13 @@
 name: CI
 
-on: push
+on:
+  push
+  release:
+    types: published
 
 jobs:
 
-  default-build:
+  1-dotnet-build:
     #runs-on: ubuntu-latest
     runs-on: ubuntu-16.04
 
@@ -63,9 +66,9 @@ jobs:
           path: src/Bkkr.GitHub.TestActionsAndRegistry/bin/Debug
 
 
-  push-package:
+  2-push-github-nuget:
     needs: default-build
-    if: startsWith(github.ref, 'refs/tags/v=')
+    if: (github.event_name == "push") && startsWith(github.ref, 'refs/tags/v=')
 
     #runs-on: ubuntu-latest
     runs-on: ubuntu-16.04
@@ -102,3 +105,48 @@ jobs:
       - name: publish
         run:  mono $NUGET_EXE push package/Bkkr.GitHub.TestActionsAndRegistry*.nupkg -Source GPR 
         #run:  dotnet nuget push Bkkr.GitHub.TestActionsAndRegistry.nupkg --source GPR 
+
+  3-push-public-nuget:
+    needs: default-build
+    if: (github.event_name == "release") && startsWith(github.ref, 'refs/tags/v=')
+
+    #runs-on: ubuntu-latest
+    runs-on: ubuntu-16.04
+
+    steps:
+      - name: dump gihub env
+        env:
+          GHCTX: ${{ toJson(github) }}
+        run: echo "$GHCTX"
+
+      - name: download package from artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: package
+
+      - name: PLACEHOLDER
+        shell: pwsh
+        run: |
+          Write-Host "This is where I push to public NUGET.ORG"
+
+      # - name: install nuget
+      #   ## Win only:
+      #   #uses: warrenbuckley/Setup-Nuget@v1
+      #   uses: olegtarasov/download-nuget@v1
+
+      # - name: register nuget repo
+      #   ## As per:
+      #   ##  https://help.github.com/en/articles/configuring-nuget-for-use-with-github-package-registry
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   #run:  nuget sources Add -Name "GPR" \
+      #   run: |
+      #     mono $NUGET_EXE sources Add -Name "GPR" \
+      #       -Source "https://nuget.pkg.github.com/ebekker/index.json" \
+      #       -UserName ebekker -Password $GITHUB_TOKEN
+      #     find . -name *.nupkg
+      #     mono $NUGET_EXE setapikey $GITHUB_TOKEN -Source "GPR"
+
+      # - name: publish
+      #   run:  mono $NUGET_EXE push package/Bkkr.GitHub.TestActionsAndRegistry*.nupkg -Source GPR 
+      #   #run:  dotnet nuget push Bkkr.GitHub.TestActionsAndRegistry.nupkg --source GPR 
