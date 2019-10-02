@@ -36,13 +36,14 @@ Write-Information "Repo Name:  [$ghRepo]"
 $metadataFilename = "GITHUB_ACTION_METADATA:$ghRepo"
 Write-Information "Looking for metadata file: [$metadataFilename]"
 
-Write-Warning "GOT TOKEN OF LENGTH $($GitHubToken.Length)"
-
 $gistsApiUrl = "https://api.github.com/gists"
 $apiHeaders = @{
     Accept        = "application/vnd.github.v2+json"
     Authorization = "token $GitHubToken"
 }
+
+Write-Warning "GOT TOKEN OF LENGTH $($GitHubToken.Length)"
+Write-Warning ($apiHeaders | ConvertTo-Json)
 
 try {
     ## Request all Gists for the current user
