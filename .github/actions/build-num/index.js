@@ -9,7 +9,7 @@ async function run() {
     const version_key = core.getInput('version_key');
 
     await exec.exec('pwsh', [
-      '-f', './build-num.ps1',
+      '-f', './.github/actions/build-num/build-num.ps1',
       '-InformationAction', 'Continue',
        '-GitHubToken', gist_token,
        '-VersionKey', version_key,

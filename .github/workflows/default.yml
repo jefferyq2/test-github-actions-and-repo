@@ -56,7 +56,7 @@ jobs:
         uses: ./.github/actions/build-num
         with:
           gist_token: ${{ secrets.BUILD_NUM_OAUTH }}
-          version_key: ${{ secrets.BUILD_NUM_OAUTH }}
+          version_key: 0
 
       - name: compute build version
         shell: pwsh
