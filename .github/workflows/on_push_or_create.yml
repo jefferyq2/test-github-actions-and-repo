@@ -25,6 +25,8 @@ jobs:
 
       - name: compute build numbers (pwsh)
         shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ./.github/workflows/build-num.ps1  \
             -InformationAction Continue              \
