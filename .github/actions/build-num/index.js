@@ -8,7 +8,12 @@ async function run() {
     const gist_token = core.getInput('gist_token');
     const version_key = core.getInput('version_key');
 
-    await exec.exec('pwsh', ['-f', 'build-num.ps1']);
+    await exec.exec('pwsh', [
+      '-f', './build-num.ps1',
+      '-InformationAction', 'Continue',
+       '-GitHubToken', gist_token,
+       '-VersionKey', version_key,
+    ]);
 
   /*
     const octokit = new github.GitHub(github_token);
