@@ -11,12 +11,18 @@ jobs:
       - name: checkout
         uses: actions/checkout@v1
 
-      - name: build number
-        uses: ./.github/actions/build-num/
-        id: build-num
+      - name: build number (pwsh)
+        run: pwsh -f ./.github/workflows/build-num.ps1
 
-      - name: print build number
-        run: echo BUILD_NUM=$BUILD_NUM
+      # - name: build number
+      #   uses: ./.github/actions/build-num/
+      #   id: build-num
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     build_name: $GITHUB_WORKFLOW
+
+      # - name: print build number
+      #   run: echo BUILD_NUM=$BUILD_NUM
 
       #- name: Setup .NET Core
       #  uses: actions/setup-dotnet@v1
