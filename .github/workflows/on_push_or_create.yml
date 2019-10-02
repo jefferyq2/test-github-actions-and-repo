@@ -42,6 +42,15 @@ jobs:
           echo "THIS_BUILD_NUM = $THIS_BUILD_NUM"
           echo "VERS_BUILD_NUM = $VERS_BUILD_NUM"
       
+      - name: dump env
+        run: set
+
+      - name: dump env with inputs
+        run: set
+        with:
+          input1: ONE
+          input2: TWO
+
       - name: export vars
         id: exportVars
         shell: bash
