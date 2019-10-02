@@ -20,6 +20,9 @@ jobs:
           echo "GITHUB_EVENT_PATH = $GITHUB_EVENT_PATH"
           echo "GITHUB_WORKSPACE  = $GITHUB_WORKSPACE"
 
+      - name: dump event payload
+        run: cat $GITHUB_EVENT_PATH
+
       - name: compute build numbers (pwsh)
         run: |
           pwsh -f ./.github/workflows/build-num.ps1  \
