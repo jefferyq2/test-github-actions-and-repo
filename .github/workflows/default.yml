@@ -1,0 +1,83 @@
+name: CI
+
+on: push
+
+jobs:
+  default-build:
+    #runs-on: ubuntu-latest
+    runs-on: ubuntu-16.04
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v1
+
+      - name: extract tag info
+        shell: pwsh
+        run: |
+          if ($env:GITHUB_REF -match '^refs/tags/v=(.+)') {
+            $tagVersion = $Match[1]
+            if ($tagVersion -match '(.+)(-.+)') {
+              $tagVersionPrefix = $Match[1]
+              $tagVersionSuffix = $Match[2]
+            }
+            else {
+              $tagVersionPrefix = $tagVersion
+              $tagVersionSuffix = ''
+            }
+            ## Export as ENV VARS for subsequent steps
+            Write-Host "Found matching Tag Version info:"
+            Write-Host "::set-env name=TAG_VERSION::$tagVersion"
+            Write-Host "::set-env name=TAG_VERSION_PREFIX::$tagVersionPrefix"
+            Write-Host "::set-env name=TAG_VERSION_SUFFIX::$tagVersionSuffix"
+          }
+
+      - name: build number (pwsh)
+        shell: pwsh
+        run: |
+          ./.github/workflows/build-num.ps1               `
+            -InformationAction Continue                   `
+            -GitHubToken "${{ secrets.BUILD_NUM_OAUTH }}" `
+            -VersionKey "$($env:TAG_VERSION_PREFIX)"
+          ## FOO
+          Write-Host "Computing Build Version Suffix as:  "
+          $buildVersionSuffix = "$($env:VERS_BUILD_NUM)$($env:TAG_VERSION_SUFFIX)"
+          Write-Host "::set-env name=BUILD_VERSION_SUFFIX::$($buildVersionSuffix)"
+
+      - name: build
+        run:  dotnet build /p:VersionSuffix=$BUILD_VERSION_SUFFIX
+
+      - name: package
+        run:  dotnet pack 
+        #/p:VersionSuffix=$THIS_BUILD_NUM
+      
+      - name: upload-archive
+        uses: actions/upload-archive
+        with:
+          name: package
+          path: src/Bkkr.GitHub.TestActionsAndRegistry/bin/Debug/*.nupkg
+
+  # push-package:
+  # needs: default-build
+  # if:
+
+  #     - name: install nuget
+  #       ## Win only:
+  #       #uses: warrenbuckley/Setup-Nuget@v1
+  #       uses: olegtarasov/download-nuget@v1
+
+  #     - name: register nuget repo
+  #       ## As per:
+  #       ##  https://help.github.com/en/articles/configuring-nuget-for-use-with-github-package-registry
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       #run:  nuget sources Add -Name "GPR" \
+  #       run: |
+  #         mono $NUGET_EXE sources Add -Name "GPR" \
+  #           -Source "https://nuget.pkg.github.com/ebekker/index.json" \
+  #           -UserName ebekker -Password $GITHUB_TOKEN
+  #         find . -name *.nupkg
+  #         mono $NUGET_EXE setapikey $GITHUB_TOKEN -Source "GPR"
+
+  #     - name: publish
+  #       #run:  dotnet nuget push Bkkr.GitHub.TestActionsAndRegistry.nupkg --source GPR 
+  #       run:  mono $NUGET_EXE push src/Bkkr.GitHub.TestActionsAndRegistry/bin/Debug/Bkkr.GitHub.TestActionsAndRegistry*.nupkg -Source GPR 
