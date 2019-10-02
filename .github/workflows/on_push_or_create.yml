@@ -24,11 +24,9 @@ jobs:
         run: cat $GITHUB_EVENT_PATH
 
       - name: compute build numbers (pwsh)
-        env:
-          #BUILD_NUM_OAUTH: ${{ secrets.BUILD_NUM_OAUTH }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
+        shell: pwsh
         run: |
-          pwsh -f ./.github/workflows/build-num.ps1  \
+          ./.github/workflows/build-num.ps1  \
             -InformationAction Continue              \
             -GitHubToken ${{ secrets.BUILD_NUM_OAUTH }} \
             -VersionKey 0.0.0 
