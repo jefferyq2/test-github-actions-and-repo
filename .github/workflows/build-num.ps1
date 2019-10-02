@@ -127,6 +127,9 @@ $($metadata | ConvertTo-Json)
     Write-Information "Exporting build numbers to environment"
     $env:THIS_BUILD_NUM = $lastBuildNum
     $env:VERS_BUILD_NUM = $lastVersBNum
+
+    Write-Information "THIS_BUILD_NUM = $($env:THIS_BUILD_NUM)"
+    Write-Information "VERS_BUILD_NUM = $($env:VERS_BUILD_NUM)"
 }
 catch {
     Write-Error "Fatal exception:  $($Error[0])"
