@@ -27,11 +27,10 @@ jobs:
         shell: pwsh
         env:
           BUILD_NUM_OAUTH: ${{ secrets.BUILD_NUM_OAUTH }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ./.github/workflows/build-num.ps1  \
             -InformationAction Continue              \
-            -GitHubToken ${{ secrets.BUILD_NUM_OAUTH }} \
+            -GitHubToken $env:BUILD_NUM_OAUTH \
             -VersionKey 0.0.0 
           echo "Dumping build numbers within step:"
           echo "GITHUB_WORKFLOW = $GITHUB_WORKFLOW"
