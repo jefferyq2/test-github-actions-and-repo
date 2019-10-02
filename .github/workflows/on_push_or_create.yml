@@ -23,6 +23,15 @@ jobs:
       - name: dump event payload
         run: cat $GITHUB_EVENT_PATH
 
+      - name: test secret
+        shell: pwsh
+        run: |
+          $secret = "${{ secrets.BUILD_NUM_OAUTH }}"
+          if ($secret) {
+            echo "It's not empty"
+            echo $secret.Length
+          }
+
       - name: compute build numbers (pwsh)
         run: |
           pwsh -f ./.github/workflows/build-num.ps1  \
