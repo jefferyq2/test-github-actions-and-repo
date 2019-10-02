@@ -6,10 +6,15 @@ try {
     // `who-to-greet` input defined in action metadata file
     const build_name = core.getInput('build_name');
     const wiki_page = core.getInput('wiki_page');
+    const github_token = core.getInput('github_token');
+    
     console.log(`BUILD_NAME is:  [${build_name}]`);
     console.log(`WIKI_PAGE is: [${wiki_page}]`);
 
-    cons.setOutput("build_num", "99");
+    const octokit = new github.GitHub(github_token);
+
+    core.setOutput("build_num", "99");
+    core.exportVariable('BUILD_NUM', '99');
 
     /*
     const time = (new Date()).toTimeString();
@@ -21,4 +26,3 @@ try {
   } catch (error) {
     core.setFailed(error.message);
   }
-  

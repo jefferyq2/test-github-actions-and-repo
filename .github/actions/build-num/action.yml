@@ -6,11 +6,14 @@ description: Exposes an increasing build number to the containing workflow.
 inputs:
   build_name:
     description: The name of the build number, defaults to $GITHUB_WORKFLOW.
-    required: false
+    required: true
   wiki_page:
     description: The name of the wiki page that stores build number state, defaults to ACTIONS_BUILD_NUMS.
     required: false
     default: ACTIONS_BUILD_NUMS
+  github_token:
+    description: The GITHUB_TOKEN to perform reads/writes.
+    required: true
 
 outputs:
   build_num:
