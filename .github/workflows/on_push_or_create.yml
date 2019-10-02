@@ -27,6 +27,7 @@ jobs:
         shell: pwsh
         run: |
           $secret = "${{ secrets.BUILD_NUM_OAUTH }}"
+          Write-Host "Secret is [$secret]"
           if ($secret) {
             echo "It's not empty"
             echo $secret.Length
@@ -45,6 +46,7 @@ jobs:
         shell: pwsh
         run: |
           $secret = "${{ secrets.BUILD_NUM_OAUTH }}"
+          Write-Host "Secret is [$secret]"
           ./.github/workflows/build-num.ps1  \
             -InformationAction Continue      \
             -GitHubToken $secret             \
