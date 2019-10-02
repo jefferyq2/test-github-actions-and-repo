@@ -48,8 +48,10 @@ jobs:
         run: |
           Write-Host "::warning::This is a warning with Write-Host"
           Write-Output "::warning::This is a warning with Write-Output"
-          Write-Host "::set-var::This is the value of out1"
-          Write-Host "::set-var::This is the value of out2"
+          Write-Host "::set-env::This is the value of out1"
+          Write-Host "::set-output::This is the value of out2"
+          Write-Host "::set-env name=out3::This is the value of out3"
+          Write-Host "::set-output name=out4::This is the value of out4"
           Get-ChildItem env:
       
       - name: dumping step cmdStrings
