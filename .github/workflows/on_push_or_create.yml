@@ -24,13 +24,12 @@ jobs:
         run: cat $GITHUB_EVENT_PATH
 
       - name: compute build numbers (pwsh)
-        shell: pwsh
         env:
           BUILD_NUM_OAUTH: ${{ secrets.BUILD_NUM_OAUTH }}
         run: |
-          ./.github/workflows/build-num.ps1  \
+          pwsh -f ./.github/workflows/build-num.ps1  \
             -InformationAction Continue              \
-            -GitHubToken $env:BUILD_NUM_OAUTH \
+            -GitHubToken ${{ secrets.BUILD_NUM_OAUTH }} \
             -VersionKey 0.0.0 
           echo "Dumping build numbers within step:"
           echo "GITHUB_WORKFLOW = $GITHUB_WORKFLOW"
