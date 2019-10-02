@@ -41,3 +41,21 @@ jobs:
         run: |
           echo "THIS_BUILD_NUM = $THIS_BUILD_NUM"
           echo "VERS_BUILD_NUM = $VERS_BUILD_NUM"
+      
+      - name: export vars
+        id: exportVars
+        shell: bash
+        run: |
+          export SAMPLE_VAR1=foo
+          export SAMPLE_VAR2=bar
+          echo "Exported vars:"
+          echo "SAMPLE_VAR1 = $SAMPLE_VAR1"
+          echo "SAMPLE_VAR2 = $SAMPLE_VAR2"
+
+      - name: dump exported vars
+        shell: bash
+        run: |
+          echo "Still Exported vars:"
+          echo "SAMPLE_VAR1 = $SAMPLE_VAR1"
+          echo "SAMPLE_VAR2 = $SAMPLE_VAR2"
+          echo "Steps Context = ${{ toJson(steps) }}"
