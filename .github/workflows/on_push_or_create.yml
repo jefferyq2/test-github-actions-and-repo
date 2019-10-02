@@ -53,9 +53,12 @@ jobs:
           echo "SAMPLE_VAR2 = $SAMPLE_VAR2"
 
       - name: dump exported vars
+        env:
+          STEPS_JSON: ${{ toJson(steps) }}
+          STEPS_JSON: ${{ toJson(steps) }}
         shell: bash
         run: |
           echo "Still Exported vars:"
           echo "SAMPLE_VAR1 = $SAMPLE_VAR1"
           echo "SAMPLE_VAR2 = $SAMPLE_VAR2"
-          echo "Steps Context = ${{ toJson(steps) }}"
+          echo "Steps Context = $STEPS_JSON"
