@@ -38,7 +38,7 @@ jobs:
             -InformationAction Continue                   `
             -GitHubToken "${{ secrets.BUILD_NUM_OAUTH }}" `
             -VersionKey "$($env:TAG_VERSION_PREFIX)"
-          ## FOO
+
           Write-Host "Computing Build Version Suffix as:  "
           $buildVersionSuffix = ".$($env:VERS_BUILD_NUM)$($env:TAG_VERSION_SUFFIX)"
           Write-Host "::set-env name=BUILD_VERSION_SUFFIX::$($buildVersionSuffix)"
@@ -47,8 +47,7 @@ jobs:
         run:  dotnet build /p:VersionBuildNumber=$BUILD_VERSION_SUFFIX
 
       - name: package
-        run:  dotnet pack 
-        #/p:VersionSuffix=$THIS_BUILD_NUM
+        run:  dotnet pack /p:VersionBuildNumber=$BUILD_VERSION_SUFFIX
       
       - name: upload package as artifact
         uses: actions/upload-artifact@v1
