@@ -124,12 +124,17 @@ $($metadata | ConvertTo-Json)
         }
     } | ConvertTo-Json)
 
-    Write-Information "Exporting build numbers to environment"
+    Write-Information "Exporting build numbers to environment and output"
     $env:THIS_BUILD_NUM = $lastBuildNum
     $env:VERS_BUILD_NUM = $lastVersBNum
 
-    Write-Information "THIS_BUILD_NUM = $($env:THIS_BUILD_NUM)"
-    Write-Information "VERS_BUILD_NUM = $($env:VERS_BUILD_NUM)"
+    ## This is based on the convention defined in:
+    ##  https://github.com/actions/toolkit/blob/master/packages/core/src/command.ts
+    ##  https://github.com/actions/toolkit/blob/master/packages/core/src/core.ts
+    Write-Host "::set-env name=THIS_BUILD_NUM::$lastBuildNum"
+    Write-Host "::set-env name=VERS_BUILD_NUM::$lastVersBNum"
+    Write-Host "::set-output name=THIS_BUILD_NUM::$lastBuildNum"
+    Write-Host "::set-output name=VERS_BUILD_NUM::$lastVersBNum"
 }
 catch {
     Write-Error "Fatal exception:  $($Error[0])"
