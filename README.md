@@ -3,7 +3,7 @@ A dummy repo to test out working with GitHub Workflows and Package Registry
 
 ---
 
-![](https://github.com/actions/hello-world/workflows/.github/workflows/on_push_or_create.yml/badge.svg)
+![](https://github.com/ebekker/test-github-actions-and-repo/workflows/.github/workflows/on_push_or_create.yml/badge.svg)
 
 ---
 
