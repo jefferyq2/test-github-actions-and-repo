@@ -55,7 +55,6 @@ jobs:
       - name: dump exported vars
         env:
           STEPS_JSON: ${{ toJson(steps) }}
-          STEPS_JSON: ${{ toJson(steps) }}
         shell: bash
         run: |
           echo "Still Exported vars:"
