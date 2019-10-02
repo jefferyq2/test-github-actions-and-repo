@@ -44,7 +44,7 @@ jobs:
           Write-Host "::set-env name=BUILD_VERSION_SUFFIX::$($buildVersionSuffix)"
 
       - name: build
-        run:  dotnet build /p:VersionSuffix=$BUILD_VERSION_SUFFIX
+        run:  dotnet build /p:VersionBuildNumber=$BUILD_VERSION_SUFFIX
 
       - name: package
         run:  dotnet pack 

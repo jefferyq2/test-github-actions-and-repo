@@ -10,4 +10,8 @@
     <RepositoryUrl>https://github.com/ebekker/test-github-actions-and-repo</RepositoryUrl>
   </PropertyGroup>
 
+  <Property>
+    <VersionPrefix>0.8.0$(VersionBuildNumber)</VersionPrefix>
+  </Property>
+
 </Project>
