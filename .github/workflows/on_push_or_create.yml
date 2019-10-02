@@ -43,10 +43,24 @@ jobs:
           echo "VERS_BUILD_NUM = $VERS_BUILD_NUM"
       
       - name: testing command strings
+        id: cmdStrings
         shell: pwsh
         run: |
           Write-Host "::warning::This is a warning with Write-Host"
           Write-Output "::warning::This is a warning with Write-Output"
+          Write-Host "::set-var name=out1::This is the value of out1"
+          Write-Host "::set-var name=out2::This is the value of out2"
+          ls env:
+      
+      - name: dumping step cmdStrings
+        shell: pwsh
+        run: |
+          echo @"
+            all steps:
+            ${{ toJson(steps) }}
+            cmdStrings:
+            ${{ toJson(steps.cmdStrings)}}
+          "@
 
       - name: dump env
         run: set
