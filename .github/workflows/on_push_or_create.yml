@@ -24,10 +24,12 @@ jobs:
         run: cat $GITHUB_EVENT_PATH
 
       - name: compute build numbers (pwsh)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
         run: |
           pwsh -f ./.github/workflows/build-num.ps1  \
             -InformationAction Continue              \
-            -GitHubToken ${{ secrets.GITHUB_TOKEN }} \
+            -GitHubToken $GITHUB_TOKEN \
             -VersionKey 0.0.0 
 
       - name: dump build numbers
