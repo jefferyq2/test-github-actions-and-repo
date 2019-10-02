@@ -20,6 +20,7 @@ SAMPLE:
 
 [CmdletBinding()]
 param(
+    [Parameter(Mandatory)]
     [string]$GitHubToken,
     [string]$VersionKey=""
 )
@@ -34,6 +35,8 @@ Write-Information "Repo Name:  [$ghRepo]"
 
 $metadataFilename = "GITHUB_ACTION_METADATA:$ghRepo"
 Write-Information "Looking for metadata file: [$metadataFilename]"
+
+Write-Warning "GOT TOKEN OF LENGTH $($GitHubToken.Length)"
 
 $gistsApiUrl = "https://api.github.com/gists"
 $apiHeaders = @{
