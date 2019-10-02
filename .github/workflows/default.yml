@@ -51,7 +51,7 @@ jobs:
         #/p:VersionSuffix=$THIS_BUILD_NUM
       
       - name: upload-archive
-        uses: actions/upload-archive
+        uses: actions/upload-archive@v1
         with:
           name: package
           path: src/Bkkr.GitHub.TestActionsAndRegistry/bin/Debug/*.nupkg
