@@ -7,5 +7,5 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      name: invoke action
-      uses: ./.github/actions/invoke-pwsh
+      - name: invoke action
+        uses: ./.github/actions/invoke-pwsh
