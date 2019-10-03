@@ -12,3 +12,20 @@ jobs:
 
       - name: invoke action
         uses: ./.github/actions/invoke-pwsh
+        env:
+          SAMPLE_ENV_1: ${{ github.ref }}
+          sample_env_2: ${{ github.sha }}
+          sampleEnv3: ${{ toJson(steps) }}
+        with:
+          foo: bar
+          bar: 99
+
+      - name: invoke action again
+        uses: ebekker/test-github-actions-and-repo/.github/actions/invoke-pwsh@master
+        env:
+          SAMPLE_ENV_1: ${{ github.ref }}
+          sample_env_2: ${{ github.sha }}
+          sampleEnv3: ${{ toJson(steps) }}
+        with:
+          foo: bar
+          bar: 99
