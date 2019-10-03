@@ -319,11 +319,11 @@ const exec = __webpack_require__(806);
 async function run() {
     try {
         await exec.exec('pwsh', [ '-c', '"Write-Host \'***** Current Directory:\'"' ]);
-        await exec.exec('pwsh', [ '-c', '"Write-Host $pwd | Out-Default | Write-Host"' ]);
+        await exec.exec('pwsh', [ '-c', '"Write-Host $pwd | Out-Host"' ]);
         await exec.exec('pwsh', [ '-c', '"Write-Host \'***** List Directory:\'"' ]);
-        await exec.exec('pwsh', [ '-c', '"Get-ChildItem . | Out-Default | Write-Host"' ]);
+        await exec.exec('pwsh', [ '-c', '"Get-ChildItem . | Out-Host"' ]);
         await exec.exec('pwsh', [ '-c', '"Write-Host \'***** List Environment:\'"' ]);
-        await exec.exec('pwsh', [ '-c', '"Get-ChildItem env: | Out-Default | Write-Host"' ]);
+        await exec.exec('pwsh', [ '-c', '"Get-ChildItem env: | Out-Host"' ]);
     } catch (error) {
         core.setFailed(error.message);
     }
