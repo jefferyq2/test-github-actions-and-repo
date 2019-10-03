@@ -318,12 +318,12 @@ const exec = __webpack_require__(806);
 
 async function run() {
     try {
-        await exec.exec('pwsh', [ '-c', '"Write-Host \'***** Current Directory:\'"' ]);
-        await exec.exec('pwsh', [ '-c', '"Write-Host $pwd | Out-Host"' ]);
-        await exec.exec('pwsh', [ '-c', '"Write-Host \'***** List Directory:\'"' ]);
-        await exec.exec('pwsh', [ '-c', '"Get-ChildItem . | Out-Host"' ]);
+        await exec.exec('pwsh', [ '-c', '"Write-Output \'***** Current Directory:\'"' ]);
+        await exec.exec('pwsh', [ '-c', '"Write-Output \\$pwd"' ]);
+        await exec.exec('pwsh', [ '-c', '"Write-Output \'***** List Directory:\'"' ]);
+        await exec.exec('pwsh', [ '-c', '"Get-ChildItem | % { Write-Warning \\$_ }"' ]);
         await exec.exec('pwsh', [ '-c', '"Write-Host \'***** List Environment:\'"' ]);
-        await exec.exec('pwsh', [ '-c', '"Get-ChildItem env: | Out-Host"' ]);
+        await exec.exec('pwsh', [ '-c', '" Get-ChildItem env: | % { Write-Warning "\\$(\\$_.Key) = \\$(\\$_.Value)" }"' ]);
     } catch (error) {
         core.setFailed(error.message);
     }
