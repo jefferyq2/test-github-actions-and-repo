@@ -80,7 +80,7 @@ jobs:
         uses: ./.github/actions/build-num
         with:
           gist_token: ${{ secrets.BUILD_NUM_OAUTH }}
-          version_key: ${{ steps.extractTagInfo.output.tag_version_prefix }}
+          version_key: ${{ steps.extractTagInfo.outputs.tag_version_prefix }}
 
       - name: compute build version
         shell: pwsh
