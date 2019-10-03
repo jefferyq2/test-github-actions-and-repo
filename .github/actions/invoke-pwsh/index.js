@@ -4,6 +4,11 @@ const exec = require('@actions/exec');
 
 async function run() {
     try {
+        core.warning("DIRNAME  = " + __dirname);
+        core.warning("FILENAME = " + __filename);
+        core.warning("PROCESS  = " + JSON.stringify(process));
+        core.warning("REQUIRE  = " + JSON.stringify(require));
+
         await exec.exec('pwsh', [ '-c', 'Write-Output \'***** Current Directory:\'' ]);
         await exec.exec('pwsh', [ '-c', 'Write-Output $pwd' ]);
         await exec.exec('pwsh', [ '-c', 'Write-Output `$pwd' ]);
