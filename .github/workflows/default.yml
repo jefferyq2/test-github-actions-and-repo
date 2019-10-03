@@ -57,6 +57,14 @@ jobs:
       #     $buildVersionSuffix = ".$($env:VERS_BUILD_NUM)$($env:TAG_VERSION_SUFFIX)"
       #     Write-Host "::set-env name=BUILD_VERSION_SUFFIX::$($buildVersionSuffix)"
 
+      - name: dump extract outputs
+        shell: pwsh
+        env:
+          STEPS_CONTEXT:  ${{ toJson(steps) }}
+        run: |
+          Write-Host "Dumping job outputs:"
+          Write-Host $env:STEPS_CONTEXT
+          
       - name: build number (pwsh)
         uses: ./.github/actions/build-num
         with:
