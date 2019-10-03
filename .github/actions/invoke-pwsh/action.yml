@@ -1,0 +1,36 @@
+
+name: invoke-pwsh
+author: ebekker
+description: General-purpose PWSH invocation.
+
+inputs:
+  sampleInput1:
+    description: This is the first sample input.
+    required: true
+  SampleInput2:
+    description: This is the second sample input.
+    required: false
+    default: 'defaultInput2'
+  SAMPLE_INPUT_3:
+    description: This is the 3rd sample input.
+    required: false
+  sample_input_4:
+    description: This is sample input IV.
+    required: false
+    default: 99
+
+outputs:
+  sample_output_1:
+    description: The first output.
+  SAMPLE_OUTPUT_2:
+    description: The 2nd output.
+  sampleOutput3:
+    description: Sample output III.
+
+runs:
+  using: node12
+  main: dist/index.js
+
+branding:
+  color: purple
+  icon: terminal
