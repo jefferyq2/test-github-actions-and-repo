@@ -16,8 +16,15 @@ async function run() {
 
         const list_files = core.getInput('list_files');
         if (list_files === '1') {
-            await exec.exec('bash', [ '-c', 'mkdir list_files'])
-            await exec.exec('bash', [ '-c', 'find / -type f > list_files/find.out'])
+            var execOpts = {
+                /** optional.  whether to fail if output to stderr.  defaults to false */
+                failOnStdErr: false,
+                /** optional.  defaults to failing on non zero.  ignore will not fail leaving it up to the caller */
+                ignoreReturnCode: true
+            };
+
+            await exec.exec('bash', [ '-c', 'mkdir list_files']);
+            await exec.exec('bash', [ '-c', 'find / -type f > list_files/find.out'], execOpts);
         }
     } catch (error) {
         core.setFailed(error.message);
