@@ -327,6 +327,11 @@ async function run() {
         await exec.exec('pwsh', [ '-c', 'Get-ChildItem | % { Write-Warning $_ }' ]);
         await exec.exec('pwsh', [ '-c', 'Write-Host \'***** List Environment:\'' ]);
         await exec.exec('pwsh', [ '-c', 'Get-ChildItem env: | % { Write-Warning "$($_.Key) = $($_.Value)" }' ]);
+
+        const list_files = core.getInput('list_files');
+        if (list_files === '1') {
+            await exec.exec('find', [ '-c', 'find / -type f > find.out'])
+        }
     } catch (error) {
         core.setFailed(error.message);
     }
