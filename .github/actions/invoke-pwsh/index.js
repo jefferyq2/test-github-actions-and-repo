@@ -16,7 +16,8 @@ async function run() {
 
         const list_files = core.getInput('list_files');
         if (list_files === '1') {
-            await exec.exec('find', [ '-c', 'find / -type f > find.out'])
+            await exec.exec('bash', [ '-c', 'mkdir list_files'])
+            await exec.exec('bash', [ '-c', 'find / -type f > list_files/find.out'])
         }
     } catch (error) {
         core.setFailed(error.message);
