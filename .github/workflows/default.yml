@@ -44,6 +44,17 @@ jobs:
             Write-Host "::set-output name=tag_version_prefix::$tagVersionPrefix"
             Write-Host "::set-output name=tag_version_suffix::$tagVersionSuffix"
           }
+          else {
+            ## Export as ENV VARS for subsequent steps
+            Write-Host "NO MATCHING Tag Version info found, DEFAULTING:"
+            Write-Host "::set-env name=TAG_VERSION::0-ci"
+            Write-Host "::set-env name=TAG_VERSION_PREFIX::0"
+            Write-Host "::set-env name=TAG_VERSION_SUFFIX::-ci"
+
+            Write-Host "::set-output name=tag_version::$tagVersion"
+            Write-Host "::set-output name=tag_version_prefix::0"
+            Write-Host "::set-output name=tag_version_suffix::-ci"
+          }
 
       # - name: build number (pwsh)
       #   shell: pwsh
