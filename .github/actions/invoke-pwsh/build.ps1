@@ -1,1 +1,2 @@
-ncc build .\index.js
+
+ncc build .\invoke-pwsh.js

@@ -1,8 +1,8 @@
 {
-  "name": "invoke-pwsh",
+  "name": "pwsh-get-info",
   "version": "1.0.0",
-  "description": "Invoke PWSH-based GitHub Action.",
-  "main": "invoke-pwsh.js",
+  "description": "Invoke PWSH to get info about execution environment.",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

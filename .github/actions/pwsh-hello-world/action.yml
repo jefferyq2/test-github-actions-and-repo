@@ -1,7 +1,7 @@
 
-name: invoke-pwsh
+name: pwsh-hello-world
 author: ebekker
-description: Invoke PWSH-based GitHub Action.
+description: Sample PWSH via NodeJS Action.
 
 inputs:
   sampleInput1:

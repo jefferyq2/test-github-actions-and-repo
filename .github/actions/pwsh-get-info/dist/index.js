@@ -34,7 +34,7 @@ module.exports =
 /******/ 	// the startup function
 /******/ 	function startup() {
 /******/ 		// Load entry module and return exports
-/******/ 		return __webpack_require__(196);
+/******/ 		return __webpack_require__(283);
 /******/ 	};
 /******/
 /******/ 	// run startup
@@ -236,26 +236,6 @@ exports.group = group;
 
 /***/ }),
 
-/***/ 196:
-/***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
-
-
-const core = __webpack_require__(138);
-const exec = __webpack_require__(806);
-
-async function run() {
-    try {
-        const pwshScript = `${__dirname}/Invoke-Action.ps1`
-        await exec.exec('pwsh', [ '-c', pwshScript ]);
-    } catch (error) {
-        core.setFailed(error.message);
-    }
-}
-run();
-
-
-/***/ }),
-
 /***/ 278:
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
 
@@ -326,6 +306,51 @@ function escape(s) {
         .replace(/;/g, '%3B');
 }
 //# sourceMappingURL=command.js.map
+
+/***/ }),
+
+/***/ 283:
+/***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
+
+
+const core = __webpack_require__(138);
+const exec = __webpack_require__(806);
+
+async function run() {
+    try {
+        core.warning("DIRNAME  = " + __dirname);
+        core.warning("FILENAME = " + __filename);
+        core.warning("PROCESS  = " + JSON.stringify(process));
+        core.warning("REQUIRE  = " + JSON.stringify(require));
+
+        await exec.exec('pwsh', [ '-c', 'Write-Output \'***** Current Directory:\'' ]);
+        await exec.exec('pwsh', [ '-c', 'Write-Output $pwd' ]);
+        await exec.exec('pwsh', [ '-c', 'Write-Output `$pwd' ]);
+        await exec.exec('pwsh', [ '-c', 'Write-Output \$pwd' ]);
+        await exec.exec('pwsh', [ '-c', 'Write-Output "::warning::$pwd"' ]);
+        await exec.exec('pwsh', [ '-c', 'Write-Output \'***** List Directory:\'' ]);
+        await exec.exec('pwsh', [ '-c', 'Get-ChildItem | % { Write-Warning $_ }' ]);
+        await exec.exec('pwsh', [ '-c', 'Write-Host \'***** List Environment:\'' ]);
+        await exec.exec('pwsh', [ '-c', 'Get-ChildItem env: | % { Write-Warning "$($_.Key) = $($_.Value)" }' ]);
+
+        const list_files = core.getInput('list_files');
+        if (list_files === '1') {
+            var execOpts = {
+                /** optional.  whether to fail if output to stderr.  defaults to false */
+                failOnStdErr: false,
+                /** optional.  defaults to failing on non zero.  ignore will not fail leaving it up to the caller */
+                ignoreReturnCode: true
+            };
+
+            await exec.exec('bash', [ '-c', 'mkdir list_files']);
+            await exec.exec('bash', [ '-c', 'find / -type f > list_files/find.out'], execOpts);
+        }
+    } catch (error) {
+        core.setFailed(error.message);
+    }
+}
+run();
+
 
 /***/ }),
 

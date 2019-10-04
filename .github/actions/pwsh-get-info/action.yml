@@ -1,7 +1,7 @@
 
-name: invoke-pwsh
+name: pwsh-get-info
 author: ebekker
-description: Invoke PWSH-based GitHub Action.
+description: Invoke PWSH to get info about execution environment.
 
 inputs:
   sampleInput1:
@@ -29,7 +29,7 @@ outputs:
 
 runs:
   using: node12
-  main: index.js
+  main: dist/index.js
 
 branding:
   color: purple
