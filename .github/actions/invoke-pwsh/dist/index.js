@@ -245,7 +245,7 @@ const exec = __webpack_require__(806);
 
 async function run() {
     try {
-        const pwshScript = `${__dirname}/Invoke-Action.ps1`
+        const pwshScript = `${__dirname}/Invoke-GitHubAction.ps1`
         await exec.exec('pwsh', [ '-c', pwshScript ]);
     } catch (error) {
         core.setFailed(error.message);
